@@ -1,45 +1,47 @@
-package com.superslots.wingames
+package com.superslots.wingams
 
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
-import androidx.lifecycle.MutableLiveData
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.appsflyer.AppsFlyerConversionListener
 import com.appsflyer.AppsFlyerLib
 import com.google.android.gms.ads.identifier.AdvertisingIdClient
-import com.superslots.domain.usecase.AppsFlyerEventListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MyViewModel : ViewModel() {
-    private val appsFlyerEventListener = AppsFlyerEventListener()
-    val conversionDataLiveData = MutableLiveData<MutableMap<String, Any>?>()
-    val conversionDataFailLiveData = MutableLiveData<String?>()
     val someValue = ""
-    val appsfSignalAppId = "JDt69d7fVFM33F6KuWHh5A"
+    val appsfSignalAppId = "3LWCCY7NyKkcwPMoQyg7ME"
     lateinit var advertisingId: String
 
-    fun initializeAppsFlyer(context: Context) {
-        AppsFlyerLib.getInstance().init(appsfSignalAppId, appsFlyerEventListener, context.applicationContext)
-        AppsFlyerLib.getInstance().start(context)
+    fun initializeAppsFlyer(context: Context,result: (MutableMap<String,Any>?) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
             advertisingId = getAdvertisingId(context) ?: ""
+            Log.d("fkqwjrio2","advertisingId  =  $advertisingId")
         }
-    }
+        val conversionDataListener = object : AppsFlyerConversionListener {
+            override fun onConversionDataSuccess(data: MutableMap<String, Any>) {
+                Log.d("fkqwjrio2","onConversionData SUCCES")
+                result.invoke(data)
+            }
 
-    fun fetchAppsFlyerData() {
-        appsFlyerEventListener.getConversionDataFuture().thenAccept { conversionData ->
-            Handler(Looper.getMainLooper()).post {
-                conversionDataLiveData.value = conversionData
+            override fun onConversionDataFail(error: String?) {
+                Log.d("fkqwjrio2","onConversionData FAIL")
+                result.invoke(null)
+            }
+
+            override fun onAppOpenAttribution(p0: MutableMap<String, String>?) {
+
+            }
+
+            override fun onAttributionFailure(error: String?) {
+
             }
         }
+        AppsFlyerLib.getInstance().init(appsfSignalAppId, conversionDataListener, context.applicationContext)
+        AppsFlyerLib.getInstance().start(context)
 
-        appsFlyerEventListener.getErrorFuture().thenAccept { conversionDataFail ->
-            Handler(Looper.getMainLooper()).post {
-                conversionDataFailLiveData.value = conversionDataFail
-            }
-        }
     }
 
     fun buildFinalLink(baseLink: String, path: String, queryParams: Map<String, String>): String {

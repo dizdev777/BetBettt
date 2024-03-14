@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.superslots.wingames"
+    namespace = "com.superslots.wingams"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.superslots.wingames"
+        applicationId = "com.superslots.wingams"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

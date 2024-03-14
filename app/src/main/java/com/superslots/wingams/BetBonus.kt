@@ -1,4 +1,4 @@
-package com.superslots.wingames
+package com.superslots.wingams
 
 import android.Manifest
 import android.app.Activity
@@ -22,7 +22,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.superslots.wingames.databinding.ActivityGameBonusBinding
+import com.superslots.wingams.databinding.ActivityGameBonusBinding
 
 class BetBonus : AppCompatActivity() {
     private var theloadmess: ValueCallback<Array<Uri>>? = null

@@ -1,4 +1,4 @@
-package com.superslots.wingames
+package com.superslots.wingams
 
 import android.view.MotionEvent
 import androidx.compose.animation.core.Animatable

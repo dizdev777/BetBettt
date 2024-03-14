@@ -1,4 +1,4 @@
-package com.superslots.wingames
+package com.superslots.wingams
 
 import android.content.Context
 import android.content.Intent
@@ -68,12 +68,14 @@ class BetBooster : ComponentActivity() {
                                 "code",
                                 responseCode
                             ).apply()
+                        }
+                            Log.d("fkqwjrio",responseCode.toString())
+                            Log.d("fkqwjrio",sharedPreferences.getString("siteUrl","").toString())
                         withContext(Dispatchers.Main) {
-                            viewModel.initializeAppsFlyer(this@BetBooster)
-                            viewModel.fetchAppsFlyerData()
+                            viewModel.initializeAppsFlyer(this@BetBooster) { conversionData ->
+                                Log.d("fkqwjrio", "fetchAppsFlyerData")
 
-                            viewModel.conversionDataLiveData.observe(this@BetBooster) { conversionData ->
-                                Log.d("fkqwjrio", "conversionDataLiveData")
+                                Log.d("fkqwjrio2", "conversionData = $conversionData")
                                 if (conversionData != null && conversionData["af_status"].toString()
                                         .contains("No")
                                 ) {
@@ -87,25 +89,25 @@ class BetBooster : ComponentActivity() {
 
                                     Log.d("fkqwjrio", "handleConversionData")
                                 } else {
-                                    if(sharedPreferences.getString("siteUrl","").isNullOrEmpty()
-                                    && responseCode == 200){
-                                    sharedPreferences.edit().putString("siteUrl",response.body?.string().toString()).apply()
-                                }
+                                    if (sharedPreferences.getString("siteUrl", "")
+                                            .isNullOrEmpty()
+                                        && responseCode == 200
+                                    ) {
+                                        sharedPreferences.edit().putString(
+                                            "siteUrl",
+                                            response.body?.string().toString()
+                                        ).apply()
+                                    }
                                     Log.d("fkqwjrio", "navigateToSiteUrl1")
                                     navigateToSiteUrl(canWeGo, responseCode)
                                 }
+
+                                Log.d("fkqwjrio", "waiting for conversionDataFailLiveData...")
+
                             }
 
-                            viewModel.conversionDataFailLiveData.observe(this@BetBooster) {
-                                if (it != null) {
-                                        Log.d("fkqwjrio", "navigateToSiteUrl2")
-                                        navigateToSiteUrl(canWeGo, responseCode)
-                                    }
-                                }
-
-
-                                markFirstLaunch()
-                            }
+                            Log.d("fkqwjrio", "markFirstLaunch")
+                            markFirstLaunch()
                         }
                     } else {
                         navigateToSiteUrl(canWeGo,sharedPreferences.getInt("code",404))
@@ -128,6 +130,7 @@ class BetBooster : ComponentActivity() {
                                 SplashBetScreen(canWeGo = canWeGo ) {
                                     navController.navigate(game){launchSingleTop=true}
                                 }
+
                             }
                             composable(game){
                                 EgyptGameScreen()
@@ -175,7 +178,7 @@ class BetBooster : ComponentActivity() {
 
         if (sharedPreferences.contains("siteUrl") ||responseCode == 200 ) {
           val link =  sharedPreferences.getString("siteUrl", null)
-            Log.d("fkqwjrio","link")
+            Log.d("fkqwjrio",link.toString())
             val tripEgypt = Intent(this@BetBooster,BetBonus::class.java)
             tripEgypt.putExtra("url",link)
             sharedPreferences.edit().putString("url",link).apply()

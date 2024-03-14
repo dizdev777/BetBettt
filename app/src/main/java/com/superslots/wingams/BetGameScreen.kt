@@ -1,4 +1,4 @@
-package com.superslots.wingames
+package com.superslots.wingams
 
 import android.app.Activity
 import android.content.pm.ActivityInfo
