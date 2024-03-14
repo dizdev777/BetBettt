@@ -32,7 +32,7 @@
             android:configChanges="keyboardHidden|orientation|keyboard|screenLayout|screenSize|smallestScreenSize|layoutDirection"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:exported="true" />
-
+        <meta-data android:name="GetApps" android:value="GetApps"/>
     </application>
 
 </manifest>

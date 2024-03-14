@@ -27,16 +27,16 @@ class MyViewModel : ViewModel() {
             }
 
             override fun onConversionDataFail(error: String?) {
-                Log.d("fkqwjrio2","onConversionData FAIL")
+                Log.d("fkqwjrio2","onConversionData FAIL $error")
                 result.invoke(null)
             }
 
             override fun onAppOpenAttribution(p0: MutableMap<String, String>?) {
-
+                Log.e("fkqwjrio2", " onAppOpenAttribution :  $p0")
             }
 
             override fun onAttributionFailure(error: String?) {
-
+                Log.e("fkqwjrio2", "error onAttributionFailure :  $error")
             }
         }
         AppsFlyerLib.getInstance().init(appsfSignalAppId, conversionDataListener, context.applicationContext)
