@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -27,12 +28,19 @@
             </intent-filter>
 
         </activity>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
         <activity
             android:name=".BetBonus"
             android:configChanges="keyboardHidden|orientation|keyboard|screenLayout|screenSize|smallestScreenSize|layoutDirection"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:exported="true" />
-        <meta-data android:name="GetApps" android:value="GetApps"/>
+        <meta-data android:name="CHANNEL" android:value="GetApps"/>
+        <meta-data android:name="AF_STORE" android:value="GetApps"/>
     </application>
 
 </manifest>

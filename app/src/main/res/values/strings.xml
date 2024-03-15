@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BetBooster</string>
+    <string name="facebook_app_id">366734632989386</string>
+    <string name="facebook_client_token">25a913c60e1245dfded1de0006723c04</string>
 </resources>

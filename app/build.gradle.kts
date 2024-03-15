@@ -63,6 +63,7 @@ android {
 }
 
 dependencies {
+    implementation ("com.facebook.android:facebook-android-sdk:latest.release")
     implementation ("com.miui.referrer:homereferrer:1.0.0.6")
     implementation("com.google.errorprone:error_prone_annotations:2.23.0")
     implementation ("com.google.android.gms:play-services-ads-identifier:18.0.1")
