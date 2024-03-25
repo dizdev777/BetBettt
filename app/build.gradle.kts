@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.superslots.wingams"
+    namespace = "com.superslots.wingames"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.superslots.wingams"
+        applicationId = "com.superslots.wingames"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -78,6 +78,7 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.compose.ui:ui-graphics")
+   
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
